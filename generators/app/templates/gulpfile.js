@@ -3,7 +3,10 @@ var livereload = require('gulp-livereload');
 var webpack = require('webpack-stream')
 var staticHash = require('gulp-static-hash');
 var uglify = require('gulp-uglify');
-var exec = require('child_process').exec
+var yargs = require('yargs')
+yargs.array('platforms')
+var argv = yargs.argv
+var cordova = require('cordova')
 
 var platforms = require('./platforms/platforms.json')
 
@@ -26,12 +29,14 @@ gulp.task('livereload', function() {
 })
 
 gulp.task('watch', ['livereload'], function() {
-  livereload.listen({port: 35729})
-  exec('cordova serve')
+  livereload.listen({port: <%= livereload.port %>})
+  cordova.serve()
   gulp.watch('./www/**/*.jsx', ['livereload'])
 })
 
-gulp.task('build', ['webpack', 'uglify', 'hash'])
+gulp.task('build', ['webpack', 'uglify', 'hash'], function(cb) {
+    return cordova.prepare(argv.platforms, cb)
+})
 
 gulp.task('hash', function() {
     return gulp.src(['www/*.html'])

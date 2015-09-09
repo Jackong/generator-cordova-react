@@ -5,10 +5,13 @@ var yosay = require('yosay');
 var shell = require('shelljs')
 
 module.exports = yeoman.generators.Base.extend({
-  prompting: function () {
+  init: function () {
     this.log(yosay(
       'Welcome to the shining ' + chalk.red('CordovaReact') + ' generator!'
     ));
+    this.livereload = {
+        port: 35729
+    }
   },
 
   writing: {
@@ -33,9 +36,12 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
     gulp: function() {
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('gulpfile.js'),
-            this.destinationPath('gulpfile.js')
+            this.destinationPath('gulpfile.js'),
+            {
+                livereload: this.livereload
+            }
         )
     },
     webpack: function() {
@@ -49,7 +55,8 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('www'),
             this.destinationPath('www'),
             {
-                appname: this.appname
+                appname: this.appname,
+                livereload: this.livereload
             }
         )
     },
