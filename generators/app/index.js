@@ -53,8 +53,13 @@ module.exports = yeoman.generators.Base.extend({
             }
         )
     },
+    platforms: function() {
+        shell.exec('cordova platform add browser')
+    },
     plugins: function() {
-        this.log(shell.exec('cordova plugin add pro.fing.cordova.gapreload').output)
+        shell.exec('cordova plugin add pro.fing.cordova.gapreload')
+        shell.exec('cordova plugin add cordova-plugin-console')
+        shell.exec('cordova plugin add cordova-plugin-device')
     },
     projectfiles: function () {
       this.fs.copy(

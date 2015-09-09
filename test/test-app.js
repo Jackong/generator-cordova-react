@@ -7,6 +7,7 @@ var os = require('os');
 
 describe('cordova-react:app', function () {
   before(function (done) {
+      this.timeout(5000)
     helpers.run(path.join(__dirname, '../generators/app'))
       .withOptions({ skipInstall: true })
       .withPrompts({ someOption: true })
