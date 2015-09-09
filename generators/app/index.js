@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var shell = require('shelljs')
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -51,6 +52,9 @@ module.exports = yeoman.generators.Base.extend({
                 appname: this.appname
             }
         )
+    },
+    plugins: function() {
+        this.log(shell.exec('cordova plugin add pro.fing.cordova.gapreload').output)
     },
     projectfiles: function () {
       this.fs.copy(

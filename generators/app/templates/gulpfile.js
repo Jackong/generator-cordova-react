@@ -26,10 +26,12 @@ gulp.task('livereload', function() {
 })
 
 gulp.task('watch', ['livereload'], function() {
-  livereload.listen()
+  livereload.listen({port: 35729})
   exec('cordova serve')
   gulp.watch('./www/**/*.jsx', ['livereload'])
 })
+
+gulp.task('build', ['webpack', 'uglify', 'hash'])
 
 gulp.task('hash', function() {
     return gulp.src(['www/*.html'])
