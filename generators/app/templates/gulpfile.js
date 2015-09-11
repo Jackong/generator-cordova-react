@@ -4,9 +4,8 @@ var webpack = require('webpack-stream')
 var staticHash = require('gulp-static-hash');
 var uglify = require('gulp-uglify');
 var yargs = require('yargs')
-yargs.array('platforms')
-var argv = yargs.argv
 var cordova = require('cordova')
+var rimraf = require('rimraf')
 
 var platforms = require('./platforms/platforms.json')
 
@@ -34,9 +33,7 @@ gulp.task('watch', ['livereload'], function() {
   gulp.watch('./www/**/*.jsx', ['livereload'])
 })
 
-gulp.task('build', ['webpack', 'uglify', 'hash'], function(cb) {
-    return cordova.prepare(argv.platforms, cb)
-})
+gulp.task('build', ['webpack', 'uglify', 'hash'])
 
 gulp.task('hash', function() {
     return gulp.src(['www/*.html'])
@@ -49,3 +46,7 @@ gulp.task('uglify', function () {
         .pipe(uglify())
         .pipe(gulp.dest('www/js'));
 });
+
+gulp.task('clean', function(cb) {
+    return rimraf('./platforms/**/www/js/*.jsx', cb)
+})

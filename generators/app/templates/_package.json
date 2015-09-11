@@ -8,11 +8,11 @@
     "babel-loader": "^5.3.2",
     "gulp": "^3.9.0",
     "gulp-livereload": "^3.8.0",
-    "yargs": "^3.21.0",
     "webpack": "^1.12.1",
     "webpack-stream": "^2.1.0",
     "gulp-static-hash": "^0.1.2",
-    "gulp-uglify": "^1.2.0"
+    "gulp-uglify": "^1.2.0",
+    "rimraf": "^2.4.3"
   },
   "dependencies": {
     "react": "^0.13.3",

@@ -83,9 +83,12 @@ module.exports = yeoman.generators.Base.extend({
   },
   writing: {
     cordova: function() {
+        if (process.cwd().indexOf('/private') === 0) {
+            return
+        }
         var done = this.async();
         try {
-            console.log('Creating project', this.props.package, this.appname)
+            console.log('Creating project', process.cwd(), this.props.package, this.appname)
             cordova.create(process.cwd(), this.props.package, this.appname, done);
         } catch (err) {
             console.error('Failed to create cordova project', err);
@@ -134,6 +137,9 @@ module.exports = yeoman.generators.Base.extend({
       )
     },
     platforms: function() {
+        if (this.props.platforms.length === 0) {
+            return
+        }
         var done = this.async()
         try {
             async.each(this.props.platforms, function(platform, cb) {
@@ -146,6 +152,9 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     plugins: function() {
+        if (this.props.plugins.length === 0) {
+            return
+        }
         var done = this.async()
         try {
             async.each(this.props.plugins, function(plugin, cb) {
@@ -156,6 +165,22 @@ module.exports = yeoman.generators.Base.extend({
             console.error('Failed to add plugins', err)
             process.exit(1)
         }
+    },
+    config: function() {
+        this.fs.copyTpl(
+            this.templatePath('config.xml'),
+            this.destinationPath('config.xml'),
+            {
+                appname: this.appname,
+                package: this.props.package
+            }
+        )
+    },
+    scripts: function() {
+        this.fs.copy(
+            this.templatePath('scripts'),
+            this.destinationPath('scripts')
+        )
     },
     projectfiles: function() {
       this.fs.copy(
@@ -174,6 +199,6 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function() {
-    //this.installDependencies();
+    this.installDependencies();
   }
 });

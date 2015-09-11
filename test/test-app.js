@@ -10,7 +10,7 @@ describe('cordova-react:app', function () {
       this.timeout(5000)
     helpers.run(path.join(__dirname, '../generators/app'))
       .withOptions({ skipInstall: true })
-      .withPrompts({ someOption: true })
+      .withPrompts({ package: 'test.example.com', platforms: [], plugins: [] })
       .on('end', done);
   });
 
@@ -23,7 +23,9 @@ describe('cordova-react:app', function () {
       '.editorconfig',
       '.jshintrc',
       '.gitignore',
-      'www'
+      'www',
+      'config.xml',
+      'scripts'
     ]);
   });
 });
