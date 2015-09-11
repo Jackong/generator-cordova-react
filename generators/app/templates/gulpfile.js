@@ -3,9 +3,9 @@ var livereload = require('gulp-livereload');
 var webpack = require('webpack-stream')
 var staticHash = require('gulp-static-hash');
 var uglify = require('gulp-uglify');
-var yargs = require('yargs')
 var cordova = require('cordova')
 var rimraf = require('rimraf')
+var runSequence = require('run-sequence')
 
 var platforms = require('./platforms/platforms.json')
 
@@ -29,11 +29,25 @@ gulp.task('livereload', function() {
 
 gulp.task('watch', ['livereload'], function() {
   livereload.listen({port: <%= livereload.port %>})
-  cordova.serve()
+  runSequence('serve')
   gulp.watch('./www/**/*.jsx', ['livereload'])
 })
 
-gulp.task('build', ['webpack', 'uglify', 'hash'])
+gulp.task('build', function(cb) {
+    return runSequence('webpack', 'uglify', 'hash')
+})
+
+gulp.task('cordova:prepare', function(cb) {
+    return cordova.prepare(cb)
+})
+
+gulp.task('prepare', function(cb) {
+    return runSequence('build', 'cordova:prepare', 'clean', cb)
+})
+
+gulp.task('serve', function(cb) {
+    return cordova.serve(cb)
+})
 
 gulp.task('hash', function() {
     return gulp.src(['www/*.html'])
@@ -48,5 +62,5 @@ gulp.task('uglify', function () {
 });
 
 gulp.task('clean', function(cb) {
-    return rimraf('./platforms/**/www/js/*.jsx', cb)
+    return rimraf('./platforms/**/www/js/**/*.jsx', cb)
 })

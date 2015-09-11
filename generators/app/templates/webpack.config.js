@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: './www/js/index.jsx',
+    index: './www/js/index.jsx',
     vendor: [
       'react',
       'react-router',
@@ -22,7 +22,7 @@ module.exports = {
     extensions: ['', '.json', '.node', '.js', '.jsx']
   },
   plugins: [
-      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor/app.js', ['app']),
+      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor/index.js', ['index']),
       new webpack.HotModuleReplacementPlugin()
   ],
   module: {

@@ -2,7 +2,6 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
-var shell = require('shelljs')
 var cordova = require('cordova')
 var async = require('async')
 
@@ -36,7 +35,7 @@ module.exports = yeoman.generators.Base.extend({
         checked: true
       }, {
         name: 'android',
-        value: 'ios',
+        value: 'android',
         checked: true
       }]
     }, {
@@ -83,12 +82,12 @@ module.exports = yeoman.generators.Base.extend({
   },
   writing: {
     cordova: function() {
-        if (process.cwd().indexOf('/private') === 0) {
+        if (this.arguments.indexOf('testing') >= 0) {
             return
         }
         var done = this.async();
         try {
-            console.log('Creating project', process.cwd(), this.props.package, this.appname)
+            console.log('Creating project', chalk.cyan(process.cwd()), chalk.cyan(this.props.package), chalk.cyan(this.appname))
             cordova.create(process.cwd(), this.props.package, this.appname, done);
         } catch (err) {
             console.error('Failed to create cordova project', err);
@@ -142,8 +141,8 @@ module.exports = yeoman.generators.Base.extend({
         }
         var done = this.async()
         try {
-            async.each(this.props.platforms, function(platform, cb) {
-                console.log('Adding platform', platform)
+            async.eachSeries(this.props.platforms, function(platform, cb) {
+                console.log('Adding platform', chalk.cyan(platform))
                 cordova.platform('add', platform, cb)
             }, done)
         } catch(err) {
@@ -157,30 +156,14 @@ module.exports = yeoman.generators.Base.extend({
         }
         var done = this.async()
         try {
-            async.each(this.props.plugins, function(plugin, cb) {
-                console.log('Adding plugin', plugin)
+            async.eachSeries(this.props.plugins, function(plugin, cb) {
+                console.log('Adding plugin', chalk.cyan(plugin))
                 cordova.plugin('add', plugin, cb)
             }, done)
         } catch(err) {
             console.error('Failed to add plugins', err)
             process.exit(1)
         }
-    },
-    config: function() {
-        this.fs.copyTpl(
-            this.templatePath('config.xml'),
-            this.destinationPath('config.xml'),
-            {
-                appname: this.appname,
-                package: this.props.package
-            }
-        )
-    },
-    scripts: function() {
-        this.fs.copy(
-            this.templatePath('scripts'),
-            this.destinationPath('scripts')
-        )
     },
     projectfiles: function() {
       this.fs.copy(
@@ -199,6 +182,6 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function() {
-    this.installDependencies();
+    //this.installDependencies();
   }
 });
