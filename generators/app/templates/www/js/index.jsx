@@ -1,12 +1,11 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import Promise from 'bluebird'
+window.Promise = Promise
+import App from './components/app'
 
-class App extends React.Component {
-    render () {
-        return (
-            <h1>Hello <%= appname %></h1>
-        )
-    }
-}
+Promise.onPossiblyUnhandledRejection(err => {
+    throw err
+})
 
 window.handleError = e => {
     console.error('error', e, e.stack);

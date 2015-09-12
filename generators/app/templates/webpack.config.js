@@ -10,7 +10,8 @@ module.exports = {
       'alt-connect',
       'es6-react-mixins',
       'axios',
-      'debug'
+      'debug',
+      'bluebird'
     ]
   },
   output: {
@@ -22,8 +23,7 @@ module.exports = {
     extensions: ['', '.json', '.node', '.js', '.jsx']
   },
   plugins: [
-      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor/index.js', ['index']),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor/index.js', ['index'])
   ],
   module: {
     loaders: [{

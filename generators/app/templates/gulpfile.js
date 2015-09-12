@@ -28,7 +28,7 @@ gulp.task('livereload', function() {
 
 gulp.task('watch', ['serve'], function() {
   livereload.listen({port: <%= livereload.port %>})
-  gulp.watch('./www/**/*.jsx', ['livereload'])
+  gulp.watch('./www/js/**/*.jsx', ['livereload'])
 })
 
 gulp.task('build', function(cb) {

@@ -20,6 +20,7 @@
     "alt": "^0.17.3",
     "alt-connect": "^1.0.4",
     "axios": "^0.5.4",
+    "bluebird": "^2.10.0",
     "debug": "^2.2.0",
     "es6-react-mixins": "^0.1.8",
     "react-router": "^0.13.3"
