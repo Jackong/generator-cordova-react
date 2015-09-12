@@ -3,8 +3,7 @@ node_modules
 www/js/vendor
 www/js/*.js
 
-platforms/*
-!platforms/*.json
+platforms
 
 plugins/*
-!plugins/*.json
+!plugins/fetch.json

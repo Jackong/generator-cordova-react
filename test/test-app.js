@@ -25,7 +25,9 @@ describe('cordova-react:app', function () {
       '.editorconfig',
       '.jshintrc',
       '.gitignore',
-      'www'
+      'www',
+      'scripts',
+      'config.xml'
     ]);
   });
 });

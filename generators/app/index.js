@@ -165,6 +165,22 @@ module.exports = yeoman.generators.Base.extend({
             process.exit(1)
         }
     },
+    scripts: function() {
+        this.fs.copy(
+            this.templatePath('scripts'),
+            this.destinationPath('scripts')
+        )
+    },
+    config: function() {
+        this.fs.copyTpl(
+            this.templatePath('config.xml'),
+            this.destinationPath('config.xml'),
+            {
+                appname: this.appname,
+                package: this.props.package
+            }
+        )
+    },
     projectfiles: function() {
       this.fs.copy(
         this.templatePath('editorconfig'),

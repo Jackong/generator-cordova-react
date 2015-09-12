@@ -7,8 +7,6 @@ var cordova = require('cordova')
 var rimraf = require('rimraf')
 var runSequence = require('run-sequence')
 
-var platforms = require('./platforms/platforms.json')
-
 var tasks = {
   webpack: function() {
     return gulp.src('./www/js/index.jsx')
@@ -21,6 +19,7 @@ gulp.task('webpack', tasks.webpack)
 
 gulp.task('livereload', function() {
   var stream = tasks.webpack()
+  var platforms = require('./platforms/platforms.json')
   for (var platform in platforms) {
     stream = stream.pipe(gulp.dest('./platforms/' + platform + '/www/js'))
   }
@@ -37,12 +36,8 @@ gulp.task('build', function(cb) {
     return runSequence('webpack', 'uglify', 'hash')
 })
 
-gulp.task('cordova:prepare', function(cb) {
-    return cordova.prepare(cb)
-})
-
 gulp.task('prepare', function(cb) {
-    return runSequence('build', 'cordova:prepare', 'clean', cb)
+    return cordova.prepare(cb)
 })
 
 gulp.task('serve', function(cb) {
@@ -63,4 +58,8 @@ gulp.task('uglify', function () {
 
 gulp.task('clean', function(cb) {
     return rimraf('./platforms/**/www/js/**/*.jsx', cb)
+})
+
+gulp.task('install', function(cb) {
+    return cordova.platform('add', ['browser', 'ios', 'android'], cb)
 })
