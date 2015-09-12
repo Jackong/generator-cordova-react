@@ -26,9 +26,8 @@ gulp.task('livereload', function() {
   return stream.pipe(livereload())
 })
 
-gulp.task('watch', ['livereload'], function() {
+gulp.task('watch', ['serve'], function() {
   livereload.listen({port: <%= livereload.port %>})
-  runSequence('serve')
   gulp.watch('./www/**/*.jsx', ['livereload'])
 })
 
