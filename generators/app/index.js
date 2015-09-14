@@ -74,7 +74,11 @@ module.exports = yeoman.generators.Base.extend({
         name: 'Gap Reload',
         value: 'pro.fing.cordova.gapreload',
         checked: true
-      }]
+    }, {
+        name: 'Crosswalk Webview',
+        value: 'cordova-plugin-crosswalk-webview',
+        checked: true
+    }]
     }], function(props) {
       this.props = props
       done()
