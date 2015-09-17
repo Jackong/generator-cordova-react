@@ -51,7 +51,13 @@ gulp.task('hash', function() {
 
 gulp.task('uglify', function () {
     return gulp.src(['www/js/**/*.js'])
-        .pipe(uglify())
+        .pipe(uglify({
+        	compress: {
+        		global_defs: {
+        		    DEBUG: false
+        		}
+        	}
+        }))
         .pipe(gulp.dest('www/js'));
 });
 

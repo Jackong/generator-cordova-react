@@ -8,7 +8,8 @@ module.exports = {
       'react-router',
       'alt',
       'alt-connect',
-      'es6-react-mixins',
+      'reactcss',
+      'reactcss-decorator',
       'axios',
       'debug',
       'bluebird'
@@ -23,12 +24,13 @@ module.exports = {
     extensions: ['', '.json', '.node', '.js', '.jsx']
   },
   plugins: [
+      new webpack.ProvidePlugin({Promise: 'bluebird'}),
       new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor/index.js', ['index'])
   ],
   module: {
     loaders: [{
       test: /\.jsx$/,
-      loaders: ['babel'],
+      loaders: ['babel?stage=0', 'react-map-styles'],
       exclude: /(node_modules|bower_components)/
     }]
   }

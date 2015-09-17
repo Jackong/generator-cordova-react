@@ -1,6 +1,4 @@
 import React from 'react'
-import Promise from 'bluebird'
-window.Promise = Promise
 import App from './components/app'
 
 Promise.onPossiblyUnhandledRejection(err => {

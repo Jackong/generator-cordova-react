@@ -13,16 +13,18 @@
     "gulp-static-hash": "^0.1.2",
     "gulp-uglify": "^1.2.0",
     "rimraf": "^2.4.3",
+    "react-map-styles": "^0.3.0",
     "run-sequence": "^1.1.2"
   },
   "dependencies": {
     "react": "^0.13.3",
     "alt": "^0.17.3",
-    "alt-connect": "^1.0.4",
+    "alt-connect": "^1.0.6",
     "axios": "^0.5.4",
     "bluebird": "^2.10.0",
     "debug": "^2.2.0",
-    "es6-react-mixins": "^0.1.8",
+    "reactcss": "^0.4.0",
+    "reactcss-decorator": "^1.0.0",
     "react-router": "^0.13.3"
   }
 }

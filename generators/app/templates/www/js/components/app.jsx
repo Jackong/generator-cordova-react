@@ -1,9 +1,26 @@
 import React, { PropTypes } from 'react'
+import ReactCSS from 'reactcss-decorator'
 
+@ReactCSS
 class App extends React.Component {
+    classes() {
+        return {
+            default: {
+                title: {
+                    color: 'red'
+                },
+                content: {
+                    color: 'blue'
+                }
+            }
+        }
+    }
     render () {
         return (
-            <h1>Hello <%= appname %></h1>
+            <div>
+                <h1 is="title">Hello <%= name %></h1>
+                <p is="content">Welcome to <%= appname %></p>
+            </div>
         )
     }
 }

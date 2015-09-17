@@ -135,6 +135,7 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('www'),
         this.destinationPath('www'), {
           appname: this.appname,
+          name: this.user.git.name(),
           livereload: this.livereload
         }
       )
