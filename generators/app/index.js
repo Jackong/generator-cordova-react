@@ -13,6 +13,7 @@ module.exports = yeoman.generators.Base.extend({
     this.livereload = {
       port: 35729
     }
+    this.appname = this.appname.replace(/\s/g, '-')
   },
   prompting: function() {
     var done = this.async()
